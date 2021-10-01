@@ -31,7 +31,7 @@ will automatically generate an SLF4J Logger in the class.
 public class DesignTacoController {
 
     @GetMapping
-    public List<Ingredient> showDesignForm(Model model) {
+    public String showDesignForm(Model model) {
 
         // TODO: remove hard coded list of ingredients
         List<Ingredient> ingredients = Arrays.asList(
@@ -47,7 +47,12 @@ public class DesignTacoController {
                 new Ingredient(10, "Sour Cream", Ingredient.Type.SAUCE)
         );
 
-        return ingredients;
+        Ingredient.Type[] types = Ingredient.Type.values();
+        for (Ingredient.Type type : types) {
+            model.addAttribute(type.toString().toLowerCase());
+        }
+        model.addAttribute("design", new Taco());
+        return "design";
 
     }
 
