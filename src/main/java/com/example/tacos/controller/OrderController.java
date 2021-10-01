@@ -1,5 +1,7 @@
 package com.example.tacos.controller;
 
+import com.example.tacos.model.*;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
@@ -15,13 +17,13 @@ public class OrderController {
 
     @GetMapping("/current")
     public String orderForm(Model model) {
-        model.addAttribute("order", new Order());
+        model.addAttribute("order", new TacoOrder());
         return "orderForm";
     }
 
     @PostMapping
-    public String processOrder(Order order) {
-        log.info("Order submitted: " + order);
+    public String processOrder(TacoOrder tacoOrder) {
+        log.info("Order submitted: " + tacoOrder);
         return "redirect:/";
     }
 }
