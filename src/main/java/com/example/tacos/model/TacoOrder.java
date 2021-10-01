@@ -3,7 +3,7 @@ package com.example.tacos.model;
 import lombok.Data;
 
 @Data
-public class Order {
+public class TacoOrder {
 
     private String name;
     private String street;
@@ -14,7 +14,7 @@ public class Order {
     private String ccExpiration;
     private String ccCVV;
 
-    public Order() {
+    public TacoOrder() {
 
     }
 
