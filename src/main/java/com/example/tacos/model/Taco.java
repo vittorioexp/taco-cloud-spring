@@ -1,12 +1,13 @@
 package com.example.tacos.model;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Data
-@RequiredArgsConstructor
 public class Taco {
 
-    private final int id;
+    private String name;
+    private List<String> ingredients;
 
 }
