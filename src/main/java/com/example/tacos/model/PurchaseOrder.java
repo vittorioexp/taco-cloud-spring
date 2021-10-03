@@ -6,8 +6,12 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
+import java.sql.Date;
+
 @Data
 public class PurchaseOrder {
+
+    private Long id;
 
     @NotBlank(message="Name is required")
     private String name;
@@ -33,5 +37,7 @@ public class PurchaseOrder {
 
     @Digits(integer=3, fraction=0, message="Invalid CVV")
     private String ccCVV;
+
+    private Date createdAt;
 
 }
