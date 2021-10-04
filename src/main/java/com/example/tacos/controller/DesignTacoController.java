@@ -30,6 +30,10 @@ This simple controller does the following:
 /*
 @Slf4j is a Lombok-provided annotation that, at runtime,
 will automatically generate an SLF4J Logger in the class.
+
+The class-level @SessionAttributes annotation specifies any model
+objects like the order attribute that should be kept in session and available across
+multiple requests.
  */
 @Slf4j
 @Controller
@@ -72,6 +76,11 @@ public class DesignTacoController {
     public String processDesign(
             @Valid Taco design, Errors errors,
             @ModelAttribute PurchaseOrder order) {
+        /*
+        The PurchaseOrder parameter is annotated with @ModelAttribute to indicate that its
+        value should come from the model and that Spring MVC shouldn’t attempt to bind
+        request parameters to it.
+         */
         if (errors.hasErrors()) {
             return "design";
         }
