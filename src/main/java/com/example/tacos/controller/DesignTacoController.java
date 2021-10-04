@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
 This simple controller does the following:
@@ -61,7 +62,8 @@ public class DesignTacoController {
         ingredientRepo.findAll().forEach(i -> ingredients.add(i));
         Ingredient.Type[] types = Ingredient.Type.values();
         for (Ingredient.Type type : types) {
-            model.addAttribute(type.toString().toLowerCase());
+            model.addAttribute(type.toString().toLowerCase(),
+                    filterByType(ingredients, type));
         }
         return "design";
     }
@@ -76,6 +78,13 @@ public class DesignTacoController {
         Taco saved = designRepo.save(design);
         order.addDesign(saved);
         return "redirect:/orders/current";
+    }
+
+    private List<Ingredient> filterByType(List<Ingredient> ingredients, Ingredient.Type type) {
+        return ingredients
+                .stream()
+                .filter(x -> x.getType().equals(type))
+                .collect(Collectors.toList());
     }
 
 }
