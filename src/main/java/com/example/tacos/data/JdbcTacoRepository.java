@@ -23,6 +23,7 @@ public class JdbcTacoRepository implements TacoRepository {
     public JdbcTacoRepository(JdbcTemplate jdbc) {
         this.jdbc = jdbc;
     }
+
     @Override
     public Taco save(Taco taco) {
         long tacoId = saveTacoInfo(taco);
@@ -46,10 +47,8 @@ public class JdbcTacoRepository implements TacoRepository {
         jdbc.update(psc, keyHolder);
         return keyHolder.getKey().longValue();
     }
-    private void saveIngredientToTaco(
-            String ingredientId, long tacoId) {
-        jdbc.update(
-                "insert into Taco_Ingredients (taco, ingredient) " +
+    private void saveIngredientToTaco(String ingredientId, long tacoId) {
+        jdbc.update("insert into Taco_Ingredients (taco, ingredient) " +
                         "values (?, ?)",
                 tacoId, ingredientId);
     }
