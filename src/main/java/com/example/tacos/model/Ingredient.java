@@ -1,9 +1,9 @@
 package com.example.tacos.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 // Lombok automatically generates equals(), hashCode(), toString(), ... at runtime
 
@@ -13,10 +13,12 @@ Lombok to generate all of those missing methods as well as a constructor that ac
 all final properties as arguments.
  */
 @Data
-@Getter
-@Setter
 @RequiredArgsConstructor
+@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
+@Entity
 public class Ingredient {
+
+    @Id
     private final String id;
     private final String name;
     private final Type type;
