@@ -2,19 +2,28 @@ package com.example.tacos.model;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.List;
 
 @Data
+@Getter
+@Setter
 public class PurchaseOrder {
 
     private Long id;
 
     @NotBlank(message="Name is required")
     private String name;
+
+    List<Taco> tacos;
 
     @NotBlank(message="Street is required")
     private String street;
@@ -40,4 +49,7 @@ public class PurchaseOrder {
 
     private Date createdAt;
 
+    public void addDesign(Taco taco) {
+        tacos.add(taco);
+    }
 }

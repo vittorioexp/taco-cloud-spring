@@ -1,7 +1,9 @@
 package com.example.tacos.model;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 // Lombok automatically generates equals(), hashCode(), toString(), ... at runtime
 
@@ -11,6 +13,8 @@ Lombok to generate all of those missing methods as well as a constructor that ac
 all final properties as arguments.
  */
 @Data
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class Ingredient {
     private final String id;
