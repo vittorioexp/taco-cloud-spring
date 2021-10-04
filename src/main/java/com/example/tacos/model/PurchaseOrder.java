@@ -1,29 +1,33 @@
 package com.example.tacos.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Data
-@Getter
-@Setter
+@Entity
+@Table(name="Taco_Order")
 public class PurchaseOrder {
 
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
     @NotBlank(message="Name is required")
     private String name;
 
-    List<Taco> tacos;
+    @ManyToMany(targetEntity=Taco.class)
+    private List<Taco> tacos = new ArrayList<>();
 
     @NotBlank(message="Street is required")
     private String street;
@@ -47,9 +51,14 @@ public class PurchaseOrder {
     @Digits(integer=3, fraction=0, message="Invalid CVV")
     private String ccCVV;
 
-    private Date createdAt;
+    private Date placedAt;
 
-    public void addDesign(Taco taco) {
-        tacos.add(taco);
+    @PrePersist
+    void placedAt() {
+        this.placedAt = new Date();
+    }
+
+    public void addDesign(Taco design) {
+        this.tacos.add(design);
     }
 }
