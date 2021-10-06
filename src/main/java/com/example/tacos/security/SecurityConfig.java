@@ -44,14 +44,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         String s2 = "/**";
 
         http
-            .authorizeRequests()
-            .antMatchers("/design", "/orders")
-            .access("hasRole('ROLE_USER')")
-            .antMatchers(s1, s2)
-            .access("permitAll")
-            .and()
-            .formLogin()
-            .loginPage("/login");
+                .authorizeRequests()
+                .antMatchers("/design", "/orders")
+                .access("hasRole('ROLE_USER')")
+                .antMatchers(s1, s2)
+                .access("permitAll")
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/design");
     }
 
 }
