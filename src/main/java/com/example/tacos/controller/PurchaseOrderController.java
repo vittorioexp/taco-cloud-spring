@@ -70,6 +70,9 @@ public class PurchaseOrderController {
         }
         order.setUser(user);
         orderRepo.save(order);
+        log.info(order.toString());
+        log.info("DONE BY");
+        log.info(user.toString());
         sessionStatus.setComplete();
         return "redirect:/";
     }
