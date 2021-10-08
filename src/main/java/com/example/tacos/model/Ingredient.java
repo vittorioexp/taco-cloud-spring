@@ -15,6 +15,7 @@ all final properties as arguments.
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
+@ToString
 @Entity
 public class Ingredient {
 
