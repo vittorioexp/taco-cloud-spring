@@ -73,7 +73,10 @@ public class DesignTacoController {
     public String showDesignForm(Model model, Principal principal) {
         log.info("   --- Designing taco");
         List<Ingredient> ingredients = new ArrayList<>();
-        ingredientRepo.findAll().forEach(i -> ingredients.add(i));
+        ingredientRepo.findAll().forEach(i -> {
+            ingredients.add(i);
+            log.info(i.toString());
+        });
 
         Type[] types = Ingredient.Type.values();
         for (Type type : types) {
@@ -101,6 +104,7 @@ public class DesignTacoController {
 
         Taco saved = tacoRepo.save(taco);
         order.addDesign(saved);
+        log.info(saved.toString());
 
         return "redirect:/orders/current";
     }
