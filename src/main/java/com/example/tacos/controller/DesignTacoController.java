@@ -39,7 +39,7 @@ multiple requests.
  */
 @Controller
 @RequestMapping("/design")
-@SessionAttributes("order")
+@SessionAttributes("purchaseOrder")
 @Slf4j
 public class DesignTacoController {
 
@@ -59,8 +59,8 @@ public class DesignTacoController {
         this.userRepo = userRepo;
     }
 
-    @ModelAttribute(name = "order")
-    public PurchaseOrder order() {
+    @ModelAttribute(name = "purchaseOrder")
+    public PurchaseOrder purchaseOrder() {
         return new PurchaseOrder();
     }
 
@@ -104,7 +104,7 @@ public class DesignTacoController {
 
         Taco saved = tacoRepo.save(taco);
         order.addDesign(saved);
-        log.info(saved.toString());
+        log.info(order.toString());
 
         return "redirect:/orders/current";
     }
