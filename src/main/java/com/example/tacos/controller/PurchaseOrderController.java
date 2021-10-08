@@ -9,9 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
@@ -19,6 +17,7 @@ import javax.validation.Valid;
 @Slf4j
 @Controller
 @RequestMapping("/orders")
+@SessionAttributes("purchaseOrder")
 public class PurchaseOrderController {
 
     private PurchaseOrderRepository orderRepo;
@@ -27,8 +26,38 @@ public class PurchaseOrderController {
         this.orderRepo = orderRepo;
     }
 
+    /*
+     Return a purchaseOrder as a ModelAttribute
+     */
+    @ModelAttribute("purchaseOrder")
+    public PurchaseOrder getPurchaseOrder() {
+        return new PurchaseOrder();
+    }
+
     @GetMapping("/current")
-    public String orderForm() {
+    public String orderForm(@AuthenticationPrincipal User user,
+                            @ModelAttribute PurchaseOrder order) {
+
+        log.info("orderForm()");
+
+        if (order.getDeliveryName() == null) {
+            order.setDeliveryName(user.getFullname());
+        }
+        if (order.getDeliveryStreet() == null) {
+            order.setDeliveryStreet(user.getStreet());
+        }
+        if (order.getDeliveryCity() == null) {
+            order.setDeliveryCity(user.getCity());
+        }
+        if (order.getDeliveryState() == null) {
+            order.setDeliveryState(user.getState());
+        }
+        if (order.getDeliveryZip() == null) {
+            order.setDeliveryZip(user.getZip());
+        }
+
+        log.info("returning orderForm");
+
         return "orderForm";
     }
 
